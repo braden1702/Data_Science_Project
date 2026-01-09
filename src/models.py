@@ -75,7 +75,19 @@ def train_ml_model(matches_file='data/raw/historical_matches.csv'):
     
     # Feature: Elo difference
     X = (df['player_elo'] - df['opponent_elo']).values.reshape(-1, 1)
-    y = df['win'].values
+    # Target: prefer actual 'win' column, otherwise fall back to 'win_elo' or 'win_ml'
+    if 'win' in df.columns:
+        y = df['win'].values
+        used_target = 'win'
+    elif 'win_elo' in df.columns:
+        y = df['win_elo'].values
+        used_target = 'win_elo'
+    elif 'win_ml' in df.columns:
+        y = df['win_ml'].values
+        used_target = 'win_ml'
+    else:
+        raise ValueError("No target column found in matches file; expected 'win' or 'win_elo'/'win_ml'.")
+    print(f"Using target column: {used_target}")
     
     # Calculate Swiss Elo accuracy
     swiss_probs = 1 / (1 + 10 ** ((df['opponent_elo'] - df['player_elo']) / ELO_SCALE))
