@@ -39,7 +39,6 @@ def calculate_delta_elo(result, probability):
     """
     return K_FACTOR * (result - probability)
 
-
 def calculate_final_elo(initial_elo, delta_elos):
     """
     Calculate final Elo after a series of matches.
@@ -75,19 +74,7 @@ def train_ml_model(matches_file='data/raw/historical_matches.csv'):
     
     # Feature: Elo difference
     X = (df['player_elo'] - df['opponent_elo']).values.reshape(-1, 1)
-    # Target: prefer actual 'win' column, otherwise fall back to 'win_elo' or 'win_ml'
-    if 'win' in df.columns:
-        y = df['win'].values
-        used_target = 'win'
-    elif 'win_elo' in df.columns:
-        y = df['win_elo'].values
-        used_target = 'win_elo'
-    elif 'win_ml' in df.columns:
-        y = df['win_ml'].values
-        used_target = 'win_ml'
-    else:
-        raise ValueError("No target column found in matches file; expected 'win' or 'win_elo'/'win_ml'.")
-    print(f"Using target column: {used_target}")
+    y = df['win'].values
     
     # Calculate Swiss Elo accuracy
     swiss_probs = 1 / (1 + 10 ** ((df['opponent_elo'] - df['player_elo']) / ELO_SCALE))
@@ -104,7 +91,6 @@ def train_ml_model(matches_file='data/raw/historical_matches.csv'):
     
     return _ml_model
 
-
 def ml_probability(player_elo, opponent_elo):
     """
     Calculate win probability using ML model.
@@ -117,7 +103,6 @@ def ml_probability(player_elo, opponent_elo):
     
     elo_diff = player_elo - opponent_elo
     return _ml_model.predict_proba([[elo_diff]])[0][1]
-
 
 def get_ml_model():
     """Get the trained ML model."""
