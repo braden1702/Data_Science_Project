@@ -1,5 +1,5 @@
 # Project Overview – Conceptual Brief (draft)
-
+ 
 ## Context and Motivation
 
 In Swiss table tennis, each competitive player is assigned a numerical rating called Elo. This rating can be thought of as a point score that represents a player's competitive strength.
