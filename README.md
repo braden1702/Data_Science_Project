@@ -114,6 +114,7 @@ RANDOM_SEED = 42           # For reproducibility
 NUM_SIMULATIONS = 10000    # Number of Monte Carlo runs
 INITIAL_ELO = 1500         # Your starting Elo (REPLACE!)
 K_FACTOR = 15              # Swiss TT K-factor
+ELO_SCALE = 200            # TABLE TENNIS ELO SCALE
 ```
 
 ## Key Formulas
