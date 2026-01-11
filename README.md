@@ -111,7 +111,7 @@ Edit these values in `main.py`:
 
 ```python
 RANDOM_SEED = 42           # For reproducibility
-NUM_SIMULATIONS = 1000     # Number of Monte Carlo runs
+NUM_SIMULATIONS = 10000    # Number of Monte Carlo runs
 INITIAL_ELO = 1500         # Your starting Elo (REPLACE!)
 K_FACTOR = 15              # Swiss TT K-factor
 ```
